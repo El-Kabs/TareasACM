@@ -3,6 +3,15 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+conn = sqlite3.connect("tareas.db")
+cc = conn.cursor()
+cc.execute("""CREATE TABLE IF NOT EXISTS tareas (
+                                    id integer PRIMARY KEY,
+                                    tarea text,
+                                    usuarios text);""")
+conn.commit()
+conn.close()
+
 @app.route("/tareas", methods=["GET", "POST"])
 def agregarTarea():
     connt = sqlite3.connect('tareas.db')
